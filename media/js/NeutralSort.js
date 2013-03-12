@@ -7,7 +7,10 @@
  *              hold the Shift key and then click on a column.
  * Usage:       - Include the NeutralSort.js file in your page
  *              - Initialization example:
- *                   $('#tableID').dataTable({ 'bNeutralSort' : true });
+ *                   $('#tableID').dataTable({
+ *                       'sDom' : 'Nlfrtip',
+ *                       'bNeutralSort' : true
+ *                   });
  * Author:      Jogchum Koerts
  * Language:    Javascript
  * License:     GPL v2 or BSD 3 point style
@@ -104,7 +107,7 @@
         this._fnConstruct();
 
         /* Add destroy callback */
-        //oDTSettings.oApi._fnCallbackReg(oDTSettings, 'aoDestroyCallback', jQuery.proxy(this._fnDestroy, this), 'NeutralSort');
+        oDTSettings.oApi._fnCallbackReg(oDTSettings, 'aoDestroyCallback', jQuery.proxy(this._fnDestroy, this), 'NeutralSort');
 
         /* Store the instance for later use */
         NeutralSort.aoInstances.push( this );
@@ -116,7 +119,10 @@
             if (typeof this.s.init === 'boolean' && this.s.init === true) {
                 var that = this;
                 $(document).bind('sort', function (event, oTable) {
-                    if (oTable.aaSorting.length === 0 && !that._justNeutralized) {
+                    if (  oTable.aaSorting.length === 0 &&
+                          typeof that._justNeutralized !== 'undefined' &&
+                          !that._justNeutralized) {
+
                         that._justNeutralized = true;
                         oTable.oInstance.fnSortNeutral();
                     } else if (that._justNeutralized) {
@@ -124,6 +130,25 @@
                     }
                 });
             }
+        },
+
+        /**
+         * Clean up NeutralSort memory references and event handlers
+         *  @method  _fnDestroy
+         *  @returns void
+         *  @private
+         */
+        "_fnDestroy": function () {
+            var iCount;
+            for ( iCount = 0; iCount < NeutralSort.aoInstances.length ; iCount += 1 ) {
+                if ( NeutralSort.aoInstances[iCount] === this ) {
+                    NeutralSort.aoInstances.splice( iCount, 1 );
+                    break;
+                }
+            }
+
+            this.s.dt.oInstance._oPluginNeutralSort = null;
+            this.s = null;
         }
     };
 
