@@ -1,6 +1,6 @@
 /*
  * File:        NeutralSort.js
- * Version:     1.0.0
+ * Version:     1.0.1
  * Description: If you want to be able to "reset" your table sorting you can use
  *              this plugin. By reset I mean that the table will be restored in
  *              it's initial state. Unsorting a table can be accomplished to
@@ -153,7 +153,7 @@
     };
 
     NeutralSort.aoInstances = [];
-    NeutralSort.prototype.version = '1.0.0';
+    NeutralSort.prototype.version = '1.0.1';
     NeutralSort.CLASS = 'NeutralSort';
     NeutralSort.prototype.CLASS = 'NeutralSort';
 
