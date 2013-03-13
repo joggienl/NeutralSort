@@ -119,14 +119,15 @@
             if (typeof this.s.init === 'boolean' && this.s.init === true) {
                 var that = this;
                 $(document).bind('sort', function (event, oTable) {
-                    if (  oTable.aaSorting.length === 0 &&
-                          typeof that._justNeutralized !== 'undefined' &&
-                          !that._justNeutralized) {
+                    if ( oTable.aaSorting.length === 0 &&
+                          typeof that.s._justNeutralized !== 'undefined' &&
+                          !that.s._justNeutralized) {
 
-                        that._justNeutralized = true;
+                        that.s._justNeutralized = true;
                         oTable.oInstance.fnSortNeutral();
-                    } else if (that._justNeutralized) {
-                        that._justNeutralized = false;
+                    } else if ( oTable.aaSorting.length === 0 && 
+                            that.s._justNeutralized) {
+                        that.s._justNeutralized = false;
                     }
                 });
             }
