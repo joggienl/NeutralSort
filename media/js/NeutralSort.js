@@ -107,7 +107,7 @@
         this._fnConstruct();
 
         /* Add destroy callback */
-        oDTSettings.oApi._fnCallbackReg(oDTSettings, 'aoDestroyCallback', jQuery.proxy(this._fnDestroy, this), 'NeutralSort');
+        oDTSettings.oApi._fnCallbackReg(oDTSettings, 'aoDestroyCallback', $.proxy(this._fnDestroy, this), 'NeutralSort');
 
         /* Store the instance for later use */
         NeutralSort.aoInstances.push( this );
