@@ -1,3 +1,6 @@
+/*jshint curly: true, forin: true, eqeqeq: true, indent: 4, latedef: true, newcap: true, noarg: true, noempty: true, quotmark: single, undef: true, unused: vars, trailing: true */
+/*global window:true, document: true, jQuery: true*/
+
 /*
  * File:        NeutralSort.js
  * Version:     1.0.1
@@ -25,7 +28,7 @@
 
 (function ($, window, document) {
 
-    "use strict";
+    'use strict';
 
     /**
      * This function will restore the order in which data was read into a
@@ -57,13 +60,11 @@
 
     var NeutralSort = function( oDTSettings, oOpts ) {
         /* Santiy check that we are a new instance */
-        if ( !this.CLASS || this.CLASS != "NeutralSort" )
-        {
-            window.alert( "Warning: NeutralSort must be initialised with the keyword 'new'" );
+        if ( !this.CLASS || this.CLASS !== 'NeutralSort' ) {
+            window.alert( 'Warning: NeutralSort must be initialised with the keyword \'new\'' );
         }
 
-        if ( typeof oOpts == 'undefined' )
-        {
+        if ( typeof oOpts === 'undefined' ) {
             oOpts = {};
         }
 
@@ -82,7 +83,7 @@
              *  @type     Object
              *  @default  null
              */
-            "dt": null,
+            'dt': null,
 
             /**
              * Initialisation object used for this instance
@@ -90,7 +91,7 @@
              *  @type     object
              *  @default  {}
              */
-            "init": oOpts,
+            'init': oOpts,
 
             /**
              * Is the table just neutralised?
@@ -98,7 +99,7 @@
              *  @type     boolean
              *  @default  false
              */
-            "_justNeutralized" : false
+            '_justNeutralized' : false
         };
 
 
@@ -115,7 +116,7 @@
     };
 
     NeutralSort.prototype = {
-        "_fnConstruct" : function () {
+        '_fnConstruct' : function () {
             if (typeof this.s.init === 'boolean' && this.s.init === true) {
                 var that = this;
                 $(document).bind('sort', function (event, oTable) {
@@ -125,7 +126,7 @@
 
                         that.s._justNeutralized = true;
                         oTable.oInstance.fnSortNeutral();
-                    } else if ( oTable.aaSorting.length === 0 && 
+                    } else if ( oTable.aaSorting.length === 0 &&
                             that.s._justNeutralized) {
                         that.s._justNeutralized = false;
                     }
@@ -139,7 +140,7 @@
          *  @returns void
          *  @private
          */
-        "_fnDestroy": function () {
+        '_fnDestroy': function () {
             var iCount;
             for ( iCount = 0; iCount < NeutralSort.aoInstances.length ; iCount += 1 ) {
                 if ( NeutralSort.aoInstances[iCount] === this ) {
@@ -178,7 +179,7 @@
                         oDTSettings.oInit.bNeutralSort : {};
                     oTable._oPluginNeutralSort = new NeutralSort( oDTSettings, opts );
                 } else {
-                    oTable.oApi._fnLog( oDTSettings, 1, "NeutralSort attempted to initialise twice. Ignoring second" );
+                    oTable.oApi._fnLog( oDTSettings, 1, 'NeutralSort attempted to initialise twice. Ignoring second' );
                 }
 
                 return null; /* No node to insert */
